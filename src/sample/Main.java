@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -52,7 +53,17 @@ public class Main extends Application {
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
 
+        final Text actionTarget = new Text();
+        grid.add(actionTarget, 1, 6);
+
         Button btn = new Button("Sign in");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                actionTarget.setFill(Color.FIREBRICK);
+                actionTarget.setText("Sign in button pressed");
+            }
+        });
         HBox hbox = new HBox(10);
         hbox.setAlignment(Pos.BOTTOM_RIGHT);
         hbox.getChildren().add(btn);
