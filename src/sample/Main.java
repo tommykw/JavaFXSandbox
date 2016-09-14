@@ -27,7 +27,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("JavaFx Welcome");
 
-
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -52,6 +51,10 @@ public class Main extends Application {
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
+        scene.getStylesheets().add(
+                Login.class.getResource("Login.css").toExternalForm()
+        );
+        primaryStage.show();
 
         final Text actionTarget = new Text();
         grid.add(actionTarget, 1, 6);
