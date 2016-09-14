@@ -34,6 +34,7 @@ public class Main extends Application {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text sceneTitle  = new Text("Welcome");
+        sceneTitle.setId("welcome-text");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(sceneTitle, 0, 0, 2, 1);
 
@@ -58,6 +59,7 @@ public class Main extends Application {
 
         final Text actionTarget = new Text();
         grid.add(actionTarget, 1, 6);
+        actionTarget.setId("actiontarget");
 
         Button btn = new Button("Sign in");
         btn.setOnAction(new EventHandler<ActionEvent>() {
