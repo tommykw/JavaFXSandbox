@@ -3,6 +3,10 @@ package ex;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +40,26 @@ public final class KeyboardApp extends Application {
         public void setPressed(final boolean value) {
             pressedProperty.set(value);
         }
+
+        public Node createNode() {
+            final StackPane keyNode = new StackPane();
+            keyNode.setFocusTraversable(true);
+            return null;
+        }
+    }
+
+    private void installEventHandler(final Parent keyboardNode) {
+        final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                final Key key = lookupKey(event.getCode());
+            }
+        };
+    }
+
+    private Key lookupKey(final KeyCode keyCode) {
+        return null;
     }
 
     private static final class Keyboard {
