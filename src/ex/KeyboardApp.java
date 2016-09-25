@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.util.List;
 
 /**
  * Created by tommy on 2016/09/24.
@@ -48,20 +52,44 @@ public final class KeyboardApp extends Application {
         }
     }
 
-    private void installEventHandler(final Parent keyboardNode) {
-        final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent event) {
-                final Key key = lookupKey(event.getCode());
-            }
-        };
-    }
-
-    private Key lookupKey(final KeyCode keyCode) {
-        return null;
-    }
-
     private static final class Keyboard {
+        private final Key[] keys;
+
+        public Keyboard(final Key... keys) {
+            this.keys = keys.clone();
+        }
+
+        public Node createNode() {
+            final HBox keyboardNode = new HBox(6);
+            keyboardNode.setPadding(new Insets(6));
+
+            final List<Node> keyboardNodeChildren = keyboardNode.getChildren();
+            for (final Key key : keys) {
+                keyboardNodeChildren.add(key.createNode());
+            }
+
+            installEventHandler(keyboardNode);
+            return keyboardNode;
+        }
+
+        private void installEventHandler(final Parent keyboardNode) {
+            final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
+
+                @Override
+                public void handle(KeyEvent event) {
+                    final Key key = lookupKey(event.getCode());
+                    if (key != null) {
+                        key.setPressed(event.getEventType() == event.KEY_PRESSED);
+                        event.consume();
+                    }
+                }
+            };
+        }
+
+        private Key lookupKey(final KeyCode keyCode) {
+            for (final Key key : keys) {
+            }
+            return null;
+        }
     }
 }
