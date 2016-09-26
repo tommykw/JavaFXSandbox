@@ -106,6 +106,7 @@ public final class KeyboardApp extends Application {
                 default:
                     return;
             }
+            
         }
     }
 }
