@@ -88,8 +88,24 @@ public final class KeyboardApp extends Application {
 
         private Key lookupKey(final KeyCode keyCode) {
             for (final Key key : keys) {
+                if (key.getKeyCode() == keyCode) {
+                    return key;
+                }
             }
             return null;
+        }
+
+        private static void handleFocusTraversal(final Parent traversalGroup,
+                                                 final KeyEvent keyEvent) {
+            final Node nextFocusedNode;
+            switch (keyEvent.getCode()) {
+                case LEFT:
+                    break;
+                case RIGHT:
+                    break;
+                default:
+                    return;
+            }
         }
     }
 }
