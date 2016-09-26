@@ -84,6 +84,19 @@ public final class KeyboardApp extends Application {
                     }
                 }
             };
+
+            keyboardNode.setOnKeyPressed(keyEventHandler);
+            keyboardNode.setOnKeyReleased(keyEventHandler);
+            keyboardNode.addEventHandler(
+                    KeyEvent.KEY_PRESSED,
+                    new EventHandler<KeyEvent>() {
+                        @Override
+                        public void handle(KeyEvent event) {
+                            handleFocusTraversal(keyboardNode, event);
+                        }
+                    }
+            );
+
         }
 
         private Key lookupKey(final KeyCode keyCode) {
