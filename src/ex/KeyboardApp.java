@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -113,13 +114,54 @@ public final class KeyboardApp extends Application {
             final Node nextFocusedNode;
             switch (keyEvent.getCode()) {
                 case LEFT:
+                    nextFocusedNode = getPreviousNode(
+                            traversalGroup,
+                            (Node) keyEvent.getTarget()
+                    );
+                    keyEvent.consume();
                     break;
                 case RIGHT:
+                    nextFocusedNode = getNextNode(
+                            traversalGroup,
+                            (Node) keyEvent.getTarget()
+                    );
+                    keyEvent.consume();
                     break;
                 default:
                     return;
             }
-            
+
+            if (nextFocusedNode != null) {
+                nextFocusedNode.requestFocus();
+            }
+        }
+
+        private static Node getPreviousNode(final Parent parent, final Node node) {
+            final Iterator<Node> childIterator = parent.getChildrenUnmodifiable().iterator();
+            Node lastNode = null;
+
+            while (childIterator.hasNext()) {
+                final Node currentNode = childIterator.next();
+                if (currentNode == node) {
+                    return lastNode;
+                }
+
+                lastNode = currentNode;
+            }
+
+            return null;
+        }
+
+        private static Node getNextNode(final Parent parent,
+                                        final Node node) {
+            final Iterator<Node> childIterator = parent.getChildrenUnmodifiable().iterator();
+            while (childIterator.hasNext()) {
+                if (childIterator.next() == node) {
+                    return childIterator.hasNext() ? childIterator.next() : null;
+                }
+            }
+
+            return null;
         }
     }
 }
