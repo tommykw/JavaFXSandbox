@@ -5,8 +5,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -23,6 +25,10 @@ public final class KeyboardApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final Keyboard keyboard = new Keyboard();
+        final Scene scene = new Scene(new Group(keyboard.createNode()));
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("keyboard");
+        primaryStage.show();
     }
 
     private static final class Key {
