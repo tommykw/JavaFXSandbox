@@ -31,6 +31,10 @@ public final class KeyboardApp extends Application {
         primaryStage.show();
     }
 
+    public static void main(final String[] args) {
+        launch(args);
+    }
+
     private static final class Key {
         private final KeyCode keyCode;
         private final BooleanProperty pressedProperty;
@@ -56,6 +60,21 @@ public final class KeyboardApp extends Application {
             final StackPane keyNode = new StackPane();
             keyNode.setFocusTraversable(true);
             return null;
+        }
+
+        private void installEventHandler(final Node keyNode) {
+            final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        setPressed(event.getEventType() == KeyEvent.KEY_PRESSED);
+                        event.consume();
+                    }
+                }
+            };
+
+            keyNode.setOnKeyPressed(keyEventHandler);
+            keyNode.setOnKeyReleased(keyEventHandler);
         }
     }
 
