@@ -51,6 +51,20 @@ public final class KeyboardApp extends Application {
             keyNode.setFocusTraversable(true);
             return null;
         }
+
+        private void installEventHandler(final Node keyNode) {
+            final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        setPressed(event.getEventType() == KeyEvent.KEY_PRESSED);
+                        event.consume();
+                    }
+                }
+            };
+            keyNode.setOnKeyPressed(keyEventHandler);
+            keyNode.setOnKeyReleased(keyEventHandler);
+        }
     }
 
     private static final class Keyboard {
