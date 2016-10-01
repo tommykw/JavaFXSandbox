@@ -14,6 +14,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +28,7 @@ import java.util.List;
  * Created by tommy on 2016/09/24.
  */
 public final class KeyboardApp extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         final Keyboard keyboard = new Keyboard();
@@ -74,7 +78,14 @@ public final class KeyboardApp extends Application {
                                             .otherwise(Color.WHITE)
                             )
             );
-            return null;
+            keyBackground.setStroke(Color.BLACK);
+            keyBackground.setStrokeWidth(2);
+            keyBackground.setArcWidth(12);
+            keyBackground.setArcHeight(12);
+            final Text keyLabel = new Text(keyCode.getName());
+            keyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+            keyNode.getChildren().addAll(keyBackground, keyLabel);
+            return keyNode;
         }
 
         private void installEventHandler(final Node keyNode) {
