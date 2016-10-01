@@ -1,6 +1,7 @@
 package ex;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -11,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -59,6 +62,18 @@ public final class KeyboardApp extends Application {
         public Node createNode() {
             final StackPane keyNode = new StackPane();
             keyNode.setFocusTraversable(true);
+            installEventHandler(keyNode);
+
+            final Rectangle keyBackground = new Rectangle(50, 50);
+            keyBackground.fillProperty().bind(
+                    Bindings.when(pressedProperty)
+                            .then(Color.RED)
+                            .otherwise(
+                                    Bindings.when(keyNode.focusedProperty())
+                                            .then(Color.LIGHTGRAY)
+                                            .otherwise(Color.WHITE)
+                            )
+            );
             return null;
         }
 
