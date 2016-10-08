@@ -35,6 +35,6 @@ public class Sample implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        area = (TextArea) parentStack.lookup("#textArea")
+        area = (TextArea) parentStack.lookup("#textArea");
     }
 }
